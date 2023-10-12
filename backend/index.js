@@ -1,20 +1,30 @@
 const express = require("express")
 const dotenv = require("dotenv")
 const mongoose = require("mongoose")
-const app = express()
-dotenv.config()
+const cors = require("cors")
+const bodyParser = require("body-parser");
+const userRoutes = require("./routes/userRoutes")
 
-app.get('/', (req, res) =>{
-    res.send("API is running")
-})
+
+dotenv.config()
+const app = express()
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({ origin: "*" }));
+app.use("/users", userRoutes);
+
+
+const uri = process.env.URI;
+
+mongoose
+  .connect(uri)
+  .then(() => {
+    console.log("Mongodb connected successfully");
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 const PORT = process.env.PORT
-const uri = process.env.URI
-
-mongoose.connect(uri)
-.then(()=>{
-    console.log("MongoDB Connected Successfully");
-}).catch((error)=>{
-    console.log(error);
-})
 app.listen(PORT, console.log(`Server Started at Port:${PORT}`));
