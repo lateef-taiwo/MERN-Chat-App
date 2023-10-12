@@ -5,11 +5,12 @@ import {
   Text,
   Tabs,
   TabList,
-  Tab,
   TabPanels,
+  Tab,
   TabPanel,
 } from "@chakra-ui/react";
 import Login from '../components/authentication/Login';
+import Register from '../components/authentication/Register';
 
 const Signup = () => {
   return (
@@ -42,16 +43,16 @@ const Signup = () => {
         borderWidth={"1px"}
       >
         <Tabs variant="soft-rounded" colorScheme="orange">
-          <TabList mb={"1em"}>
-            <Tab width={"50%"}>Login</Tab>
-            <Tab width={"50%"}>Sign Up</Tab>
+          <TabList>
+            <Tab w={"50%"}>Login</Tab>
+            <Tab w={"50%"}>Sign Up</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
-              <Login/>
+              <Login />
             </TabPanel>
             <TabPanel>
-              <Signup/>
+              <Register/>
             </TabPanel>
           </TabPanels>
         </Tabs>
