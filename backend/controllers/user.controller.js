@@ -1,3 +1,4 @@
+const { verifyToken } = require("../config/sessions");
 const { User } = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../config/sessions").generateToken;
@@ -24,7 +25,6 @@ const register = async (req, res) => {
         res.status(200).json({
           success: true,
           message: "User registered successfully",
-          token: generateToken(email),
         });
     } catch (error) {
         console.log(error);
@@ -43,10 +43,13 @@ const login = async (req, res) => {
             .send({ message: "User not Found", status: false });
         }
         const isMatch = await bcrypt.compare(password, user.password);
-        // const token = generateToken(email)
+        const token = generateToken(email)
         if (isMatch) {
-          return res.status(200).send({ user });
+          return res
+            .status(200)
+            .send({ message: `Login Successful`, status: true, token });
         }
+        verifyToken
         return res
           .status(401)
           .send({ message: "Invalid Password", status: false });
@@ -55,4 +58,27 @@ const login = async (req, res) => {
     }
 }
 
-module.exports = { register, login };
+const allUsers = async (req, res) => {
+    const keyword = req.query.search
+    ? {
+        $or: [
+            {
+                name: {
+                    $regex: req.query.search,
+                    $options: "i",
+                },
+            },
+            {
+                email: {
+                    $regex: req.query.search,
+                    $options: "i",
+                },
+            },
+        ],
+      } : {};
+
+    const users = await User.find(keyword).find({_id: {$ne: req.user._id}});
+    res.send(users);
+};
+
+module.exports = { register, login, allUsers };

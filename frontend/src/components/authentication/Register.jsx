@@ -1,4 +1,4 @@
-import { Button, FormControl, FormLabel, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
+import { Button, FormControl, FormLabel, InputGroup, InputRightElement, VStack, useToast} from '@chakra-ui/react'
 import { Input } from '@chakra-ui/react'
 import axios from 'axios'
 import { useFormik } from "formik";
@@ -12,12 +12,52 @@ const Register = () => {
   const [pic, setpic] = useState("")
   const handleClick = () => setshow(!show)
   const [isLoading, setisLoading] = useState(false)
+  const Toast = useToast()
 
   const postDetails = (pics) => {
-    
+    if (!pics) {
+      return Toast({
+        title: "Please select an image",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+    setisLoading(true)
+    if (pics.type === "image/jpeg" || pics.type === "image/png" || pics.type === "image/jpg") {
+      const data = new FormData()
+      data.append("file", pics)
+      data.append("upload_preset", "Chat App")
+      data.append("cloud_name", "blaze001");
+      fetch("https://api.cloudinary.com/v1_1/blaze001/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setpic(data.url.toString())
+          console.log(pic);
+        })
+        .catch((err) => {
+          console.log(err)
+        }).finally(()=>{
+          setisLoading(false)
+        })
+    }else{
+      Toast({
+        title: "Please select an image",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setisLoading(false)
+      return;
+    }
   }
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     setisLoading(true)
     const data = {
       name: values.name,
@@ -25,11 +65,25 @@ const Register = () => {
       password: values.password,
       pic: pic,
     }
-    axios.post("http://localhost:5000/users/register", data)
+    await axios.post("http://localhost:5000/users/register", data)
     .then((res) => {
       console.log(res);
+      Toast({
+        title: res.data.message,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        posiition: "bottom",
+      });
     }).catch((error)=>{
       console.log(error);
+      Toast({
+        title: error.response.data.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        posiition: "bottom",
+      });
     }).finally(()=>{
       setisLoading(false)
     })

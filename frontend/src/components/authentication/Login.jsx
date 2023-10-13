@@ -5,10 +5,12 @@ import {
   InputGroup,
   InputRightElement,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Input } from "@chakra-ui/react";
+import {useNavigate} from 'react-router-dom'
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
@@ -17,6 +19,8 @@ const Login = () => {
   const [isLoading, setisLoading] = useState(false)
     const [show, setshow] = useState(false);
     const handleClick = () => setshow(!show);
+    const Toast = useToast();
+    const navigate = useNavigate();
      const onSubmit = (values) => {
        setisLoading(true);
        const data = {
@@ -27,9 +31,25 @@ const Login = () => {
          .post("http://localhost:5000/users/login", data)
          .then((res) => {
            console.log(res);
+           Toast({
+            title: res.data.message,
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+              posiition: "bottom",
+           });
+            localStorage.setItem("token", res.data.token);
+           navigate('/dashboard')
          })
          .catch((error) => {
            console.log(error);
+           Toast({
+             title: error.response.data.message,
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+              posiition: "bottom",
+           });
          })
          .finally(() => {
            setisLoading(false);
