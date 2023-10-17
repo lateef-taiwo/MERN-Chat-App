@@ -126,7 +126,7 @@ const renameGroup = async (req, res) => {
 
 const addToGroup = async (req, res) => {
     const { chatId, userId } = req.body;
-    const removed = await Chat.findByIdAndUpdate(
+    const added = await Chat.findByIdAndUpdate(
         chatId,
         {
             $push: { users: userId },
