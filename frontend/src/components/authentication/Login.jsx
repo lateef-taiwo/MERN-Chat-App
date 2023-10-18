@@ -38,7 +38,7 @@ const Login = () => {
               isClosable: true,
               posiition: "bottom",
            });
-            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("userInfo", JSON.stringify(res.data));
            navigate('/dashboard')
          })
          .catch((error) => {

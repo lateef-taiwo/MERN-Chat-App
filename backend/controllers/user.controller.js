@@ -50,7 +50,15 @@ const login = async (req, res, next) => {
       console.log(req.user);
       return res
         .status(200)
-        .send({ message: `Login Successful`, status: true, token });
+        .json({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          pic: user.pic,
+          token: token,
+          success: true,
+          message: "Login Successful",
+        })
     }
     verifyToken;
     return res.status(401).send({ message: "Invalid Password", status: false });
