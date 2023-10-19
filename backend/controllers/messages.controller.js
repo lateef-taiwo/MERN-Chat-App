@@ -18,6 +18,7 @@ const sendMessage = async (req, res) => {
 
   try {
     var message = await Message.create(newMessage);
+    
 
     message = await message.populate("sender", "name pic");
     message = await message.populate("chat");
@@ -25,6 +26,7 @@ const sendMessage = async (req, res) => {
       path: "chat.users",
       select: "name pic email",
     });
+
     await Chat.findByIdAndUpdate(req.body.chatId, {
       latestMessage: message,
     });
@@ -38,12 +40,13 @@ const sendMessage = async (req, res) => {
 
 const allMessages = async (req, res) => {
   try {
-    const messages = await Message.find({ chat: req.params.chatId })
+    const messages = await Message.find({Chat: req.params.chatId})
       .populate("sender", "name pic email")
       .populate("chat");
 
       res.json(messages)
   } catch (error) {
+    console.log(error);
     res.status(400);
     throw new Error(error.message);
   }
