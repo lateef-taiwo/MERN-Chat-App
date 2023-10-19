@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { chatState } from '../../Context/ChatProvider';
 import UserListItem from '../User Avatar/UserListItem';
 import UserBadgeItem from '../User Avatar/UserBadgeItem';
+import axios from 'axios';
+import ChatLoader from '../ChatLoader';
 
 const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -13,7 +15,7 @@ const GroupChatModal = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
-  const { user, chats, setChats } = chatState();
+  const { user, chats, setchats } = chatState();
 
   const handleGroup = (userToAdd) => {
     if (selectedUsers.includes(userToAdd)) {
@@ -43,7 +45,10 @@ const GroupChatModal = ({ children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(
+        `http://localhost:5000/users?search=${search}`,
+        config
+      );
       console.log(data);
       setLoading(false);
       setSearchResult(data);
@@ -82,14 +87,14 @@ const GroupChatModal = ({ children }) => {
         },
       };
       const { data } = await axios.post(
-        `/api/chat/group`,
+        `http://localhost:5000/chat/group`,
         {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((u) => u._id)),
         },
         config
       );
-      setChats([data, ...chats]);
+      setchats([data, ...chats]);
       onClose();
       toast({
         title: "New Group Chat Created!",
@@ -99,9 +104,10 @@ const GroupChatModal = ({ children }) => {
         position: "bottom",
       });
     } catch (error) {
+        console.log(error);
       toast({
         title: "Failed to Create the Chat!",
-        description: error.response.data,
+        description: error.response,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -120,13 +126,13 @@ const GroupChatModal = ({ children }) => {
           <ModalHeader
             fontSize="35px"
             fontFamily="Work sans"
-            d="flex"
+            display="flex"
             justifyContent="center"
           >
             Create Group Chat
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody d="flex" flexDir="column" alignItems="center">
+          <ModalBody display="flex" flexDir="column" alignItems="center">
             <FormControl>
               <Input
                 placeholder="Chat Name"
@@ -136,12 +142,12 @@ const GroupChatModal = ({ children }) => {
             </FormControl>
             <FormControl>
               <Input
-                placeholder="Add Users eg: John, Piyush, Jane"
+                placeholder="Add Users by name eg: John"
                 mb={1}
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
-            <Box w="100%" d="flex" flexWrap="wrap">
+            <Box w="100%" display="flex" flexWrap="wrap">
               {selectedUsers.map((u) => (
                 <UserBadgeItem
                   key={u._id}
@@ -151,8 +157,8 @@ const GroupChatModal = ({ children }) => {
               ))}
             </Box>
             {loading ? (
-              // <ChatLoading />
-              <div>Loading...</div>
+              <ChatLoader />
+            //   <div>Loading...</div>
             ) : (
               searchResult
                 ?.slice(0, 4)
@@ -166,7 +172,7 @@ const GroupChatModal = ({ children }) => {
             )}
           </ModalBody>
           <ModalFooter>
-            <Button onClick={handleSubmit} colorScheme="blue">
+            <Button onClick={handleSubmit} colorScheme="orange">
               Create Chat
             </Button>
           </ModalFooter>

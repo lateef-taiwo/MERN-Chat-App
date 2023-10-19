@@ -1,29 +1,31 @@
-import React from 'react'
-import { chatState } from '../Context/ChatProvider'
-import { Box } from '@chakra-ui/react'
-import SideDrawer from '../components/Sub-Components/SideDrawer'
-import MyChats from '../components/MyChats'
-import ChatBox from '../components/ChatBox'
+import React, { useState } from "react";
+import { chatState } from "../Context/ChatProvider";
+import { Box } from "@chakra-ui/react";
+import SideDrawer from "../components/Sub-Components/SideDrawer";
+import MyChats from "../components/MyChats";
+import ChatBox from "../components/ChatBox";
 
 const Chats = () => {
-  const { user } = chatState()
+  const { user } = chatState();
+  const [fetchAgain, setfetchAgain] = useState(false)
 
   return (
-    <div style={{width: "100%"}}>
+    <div style={{ width: "100%" }}>
       {user && <SideDrawer />}
       <Box
-        display={'flex'}
-        justifyContent={'space-between'}
-        w={'100%'}
-        h={'100vh'}
-        p={'10px'}
-
+        display={"flex"}
+        justifyContent={"space-between"}
+        w={"100%"}
+        h={"100vh"}
+        p={"10px"}
       >
-        {user && <MyChats/>}
-        {user && <ChatBox />}
+        {user && <MyChats fetchAgain={fetchAgain} />}
+        {user && (
+          <ChatBox fetchAgain={fetchAgain} setfetchAgain={setfetchAgain} />
+        )}
       </Box>
     </div>
-  )
-}
+  );
+};
 
-export default Chats
+export default Chats;

@@ -5,6 +5,7 @@ const cors = require("cors")
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/userRoutes")
 const chatRoutes = require("./routes/chatRoutes")
+const messageRoutes = require("./routes/messageRoutes")
 const {errorHandler} = require("./middleware/errorHandler")
 
 
@@ -18,6 +19,8 @@ app.use(cors({ origin: "*" }));
 app.use(errorHandler)
 app.use("/users", userRoutes);
 app.use("/chat", chatRoutes);
+app.use("/message", messageRoutes);
+
 
 
 const uri = process.env.URI;
