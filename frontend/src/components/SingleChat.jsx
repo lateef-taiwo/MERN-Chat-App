@@ -48,12 +48,14 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
 
         setLoading(true);
 
+        console.log(selectedChat._id);
+
         const { data } = await axios.get(
-          `https://chat-app-60xp.onrender.com/message/${selectedChat._id}`,
+          `http://localhost:5000/message/${selectedChat._id}`,
           config
         );
 
-        console.log(messages);
+        console.log(data);
         setMessages(data);
         setLoading(false);
 
@@ -218,13 +220,13 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
                 margin="auto"
               />
             ) : (
-              <div className="messages">
-                {/* <ScrollableChat messages={messages} /> */}
+              <div className="flex flex-col overflow-y-scroll scrollbar-none">
+                <ScrollableChat messages={messages} />
               </div>
             )}
 
             <FormControl
-                onKeyDown={sendMessage}
+              onKeyDown={sendMessage}
               id="first-name"
               isRequired
               mt={3}
