@@ -63,7 +63,7 @@ const SideDrawer = () => {
       };
 
       const { data } = await axios.get(
-        `http://localhost:5000/users?search=${search}`,
+        `https://chat-app-60xp.onrender.com/users?search=${search}`,
         config
       );
       console.log(data);
@@ -95,7 +95,7 @@ const SideDrawer = () => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/chat",
+        "https://chat-app-60xp.onrender.com/chat",
         { userid },
         config
       );
@@ -130,7 +130,7 @@ const SideDrawer = () => {
       >
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
           <Button variant={"ghost"} onClick={onOpen}>
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i className="fa-solid fa-magnifying-glass"></i>
             <Text display={{ base: "none", md: "flex" }} px="4">
               Search User
             </Text>

@@ -19,13 +19,14 @@ const sendMessage = async (req, res) => {
   try {
     var message = await Message.create(newMessage);
     
-
+console.log(message);
     message = await message.populate("sender", "name pic");
     message = await message.populate("chat");
     message = await User.populate(message, {
       path: "chat.users",
       select: "name pic email",
     });
+    console.log(message);
 
     await Chat.findByIdAndUpdate(req.body.chatId, {
       latestMessage: message,
@@ -33,14 +34,16 @@ const sendMessage = async (req, res) => {
 
     res.json(message);
   } catch (error) {
+    console.log(error);
     res.status(400);
-    throw new Error(error.message);
+    // throw new Error(error.message);
   }
 };
 
 const allMessages = async (req, res) => {
   try {
-    const messages = await Message.find({Chat: req.params.chatId})
+    console.log(req.params.chatId);
+    const messages = await Message.find({chat: req.params.chatId})
       .populate("sender", "name pic email")
       .populate("chat");
 
