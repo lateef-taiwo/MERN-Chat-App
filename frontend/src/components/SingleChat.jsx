@@ -15,6 +15,10 @@ import ScrollableChat from "./ScrollableChat";
 import { getSender, getSenderFull } from "../config/ChatLogics";
 import UpdateGroupChat from "./Sub-Components/UpdateGroupChat";
 import axios from "axios";
+import io from "socket.io-client";
+
+const endpoint = "https://chat-app-60xp.onrender.com";
+var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setfetchAgain }) => {
   const [messages, setMessages] = useState([]);
@@ -108,15 +112,15 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
     }
   };
 
-  //   useEffect(() => {
-  //     socket = io(ENDPOINT);
-  //     socket.emit("setup", user);
-  //     socket.on("connected", () => setSocketConnected(true));
-  //     socket.on("typing", () => setIsTyping(true));
-  //     socket.on("stop typing", () => setIsTyping(false));
+    useEffect(() => {
+      socket = io(endpoint);
+      socket.emit("setup", user);
+      socket.on("connected", () => setSocketConnected(true));
+      socket.on("typing", () => setIsTyping(true));
+      socket.on("stop typing", () => setIsTyping(false));
 
-  //     // eslint-disable-next-line
-  //   }, []);
+      // eslint-disable-next-line
+    }, []);
 
     useEffect(() => {
       fetchMessages();

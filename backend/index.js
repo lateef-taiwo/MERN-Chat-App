@@ -35,4 +35,15 @@ mongoose
   });
 
 const PORT = process.env.PORT
-app.listen(PORT, console.log(`Server Started at Port:${PORT}`));
+const server = app.listen(PORT, console.log(`Server Started at Port:${PORT}`));
+
+const io = require("socket.io")(server, {
+  pingTimeout: 60000,
+  cors: {
+    origin: "*",
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("Soketio connected");
+});
