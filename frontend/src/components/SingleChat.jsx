@@ -17,7 +17,7 @@ import UpdateGroupChat from "./Sub-Components/UpdateGroupChat";
 import axios from "axios";
 import io from "socket.io-client";
 
-const endpoint = "https://chat-app-60xp.onrender.com";
+const endpoint = "http://localhost:5000";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setfetchAgain }) => {
@@ -63,7 +63,7 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
         setMessages(data);
         setLoading(false);
 
-        // socket.emit("join chat", selectedChat._id);
+        socket.emit("join chat", selectedChat._id);
       } catch (error) {
         console.log(error);
         toast({
@@ -79,7 +79,7 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
 
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
-      // socket.emit("stop typing", selectedChat._id);
+      socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
           headers: {
@@ -97,7 +97,7 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
           config
         );
         console.log(data);
-        // socket.emit("new message", data);
+        socket.emit("new message", data);
         setMessages([...messages, data]);
       } catch (error) {
         toast({
@@ -125,45 +125,45 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
     useEffect(() => {
       fetchMessages();
 
-      // selectedChatCompare = selectedChat;
+      selectedChatCompare = selectedChat;
       // eslint-disable-next-line
     }, [selectedChat]);
 
-  //   useEffect(() => {
-  //     socket.on("message recieved", (newMessageRecieved) => {
-  //       if (
-  //         !selectedChatCompare || // if chat is not selected or doesn't match current chat
-  //         selectedChatCompare._id !== newMessageRecieved.chat._id
-  //       ) {
-  //         if (!notification.includes(newMessageRecieved)) {
-  //           setNotification([newMessageRecieved, ...notification]);
-  //           setfetchAgain(!fetchAgain);
-  //         }
-  //       } else {
-  //         setMessages([...messages, newMessageRecieved]);
-  //       }
-  //     });
-  //   });
+    useEffect(() => {
+      socket.on("message recieved", (newMessageRecieved) => {
+        if (
+          !selectedChatCompare || // if chat is not selected or doesn't match current chat
+          selectedChatCompare._id !== newMessageRecieved.chat._id
+        ) {
+          if (!notification.includes(newMessageRecieved)) {
+            setNotification([newMessageRecieved, ...notification]);
+            setfetchAgain(!fetchAgain);
+          }
+        } else {
+          setMessages([...messages, newMessageRecieved]);
+        }
+      });
+    });
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
 
-    // if (!socketConnected) return;
+    if (!socketConnected) return;
 
-    // if (!typing) {
-    //   setTyping(true);
-    //   socket.emit("typing", selectedChat._id);
-    // }
-    // let lastTypingTime = new Date().getTime();
-    // var timerLength = 3000;
-    // setTimeout(() => {
-    //   var timeNow = new Date().getTime();
-    //   var timeDiff = timeNow - lastTypingTime;
-    //   if (timeDiff >= timerLength && typing) {
-    //     socket.emit("stop typing", selectedChat._id);
-    //     setTyping(false);
-    //   }
-    // }, timerLength);
+    if (!typing) {
+      setTyping(true);
+      socket.emit("typing", selectedChat._id);
+    }
+    let lastTypingTime = new Date().getTime();
+    var timerLength = 3000;
+    setTimeout(() => {
+      var timeNow = new Date().getTime();
+      var timeDiff = timeNow - lastTypingTime;
+      if (timeDiff >= timerLength && typing) {
+        socket.emit("stop typing", selectedChat._id);
+        setTyping(false);
+      }
+    }, timerLength);
   };
 
   return (
@@ -235,18 +235,19 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
               isRequired
               mt={3}
             >
-              {/* {istyping ? (
+              {istyping ? (
                 <div>
-                  <Lottie
+                  {/* <Lottie
                     options={defaultOptions}
                     // height={50}
                     width={70}
                     style={{ marginBottom: 15, marginLeft: 0 }}
-                  />
+                  /> */}
+                  Loading
                 </div>
               ) : (
                 <></>
-              )} */}
+              )}
               <Input
                 variant="filled"
                 bg="#E0E0E0"
