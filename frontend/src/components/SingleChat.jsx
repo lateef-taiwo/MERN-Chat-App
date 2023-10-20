@@ -16,6 +16,8 @@ import { getSender, getSenderFull } from "../config/ChatLogics";
 import UpdateGroupChat from "./Sub-Components/UpdateGroupChat";
 import axios from "axios";
 import io from "socket.io-client";
+import Lottie from "react-lottie";
+import animationData from "../animations/animation_lnyzk5oe.json"
 
 const endpoint = "http://localhost:5000";
 var socket, selectedChatCompare;
@@ -29,14 +31,14 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
   const [istyping, setIsTyping] = useState(false);
   const toast = useToast();
 
-  //   const defaultOptions = {
-  //     loop: true,
-  //     autoplay: true,
-  //     animationData: animationData,
-  //     rendererSettings: {
-  //       preserveAspectRatio: "xMidYMid slice",
-  //     },
-  //   };
+    const defaultOptions = {
+      loop: true,
+      autoplay: true,
+      animationData: animationData,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice",
+      },
+    };
   const { selectedChat, setselectedChat, user, notification, setNotification } =
     chatState();
 
@@ -237,13 +239,12 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
             >
               {istyping ? (
                 <div>
-                  {/* <Lottie
+                  <Lottie
                     options={defaultOptions}
-                    // height={50}
+                    height={50}
                     width={70}
                     style={{ marginBottom: 15, marginLeft: 0 }}
-                  /> */}
-                  Loading
+                  />
                 </div>
               ) : (
                 <></>
