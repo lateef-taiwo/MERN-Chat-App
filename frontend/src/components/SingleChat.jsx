@@ -55,7 +55,7 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
         console.log(selectedChat._id);
 
         const { data } = await axios.get(
-          `http://localhost:5000/message/${selectedChat._id}`,
+          `https://chat-app-60xp.onrender.com/message/${selectedChat._id}`,
           config
         );
 
