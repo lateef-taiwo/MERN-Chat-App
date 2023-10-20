@@ -28,27 +28,27 @@ const Login = () => {
          password: values.password,
        };
        axios
-         .post("http://localhost:5000/users/login", data)
+         .post("https://chat-app-60xp.onrender.com/users/login", data)
          .then((res) => {
            console.log(res);
            Toast({
-            title: res.data.message,
-              status: "success",
-              duration: 5000,
-              isClosable: true,
-              posiition: "bottom",
+             title: res.data.message,
+             status: "success",
+             duration: 5000,
+             isClosable: true,
+             posiition: "bottom",
            });
-            localStorage.setItem("userInfo", JSON.stringify(res.data));
-           navigate('/dashboard')
+           localStorage.setItem("userInfo", JSON.stringify(res.data));
+           navigate("/dashboard");
          })
          .catch((error) => {
            console.log(error);
            Toast({
              title: error.response.data.message,
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-              posiition: "bottom",
+             status: "error",
+             duration: 5000,
+             isClosable: true,
+             posiition: "bottom",
            });
          })
          .finally(() => {

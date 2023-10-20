@@ -65,28 +65,31 @@ const Register = () => {
       password: values.password,
       pic: pic,
     }
-    await axios.post("http://localhost:5000/users/register", data)
-    .then((res) => {
-      console.log(res);
-      Toast({
-        title: res.data.message,
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        posiition: "bottom",
+    await axios
+      .post("https://chat-app-60xp.onrender.com/users/register", data)
+      .then((res) => {
+        console.log(res);
+        Toast({
+          title: res.data.message,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          posiition: "bottom",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Toast({
+          title: error.response.data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          posiition: "bottom",
+        });
+      })
+      .finally(() => {
+        setisLoading(false);
       });
-    }).catch((error)=>{
-      console.log(error);
-      Toast({
-        title: error.response.data.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        posiition: "bottom",
-      });
-    }).finally(()=>{
-      setisLoading(false)
-    })
   }
 
   const emailValidate =
