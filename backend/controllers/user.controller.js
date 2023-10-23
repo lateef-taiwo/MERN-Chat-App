@@ -61,7 +61,7 @@ const login = async (req, res, next) => {
         })
     }
     verifyToken;
-    return res.status(401).send({ message: "Invalid Password", status: false });
+    return res.status(401).send({ message: "Invalid Login Credentials", status: false });
   } catch (error) {
     next(error);
   }
