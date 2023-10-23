@@ -28,7 +28,7 @@ const Login = () => {
          password: values.password,
        };
        axios
-         .post("http://localhost:5000/users/login", data)
+         .post("https://chat-app-60xp.onrender.com/users/login", data)
          .then((res) => {
            console.log(res);
            Toast({

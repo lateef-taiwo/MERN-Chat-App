@@ -66,7 +66,7 @@ const Register = () => {
       pic: pic,
     }
     await axios
-      .post("http://localhost:5000/users/register", data)
+      .post("https://chat-app-60xp.onrender.com/users/register", data)
       .then((res) => {
         console.log(res);
         Toast({
