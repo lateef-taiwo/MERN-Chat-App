@@ -63,7 +63,7 @@ const SideDrawer = () => {
       };
 
       const { data } = await axios.get(
-        `https://chat-app-60xp.onrender.com/users?search=${search}`,
+        `https://chat-app-blpr.onrender.com/users?search=${search}`,
         config
       );
       console.log(data);

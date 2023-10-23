@@ -31,7 +31,7 @@ const UpdateGroupChat = ({ fetchMessages, fetchAgain, setfetchAgain }) => {
         },
       };
       const { data } = await axios.get(
-        `https://chat-app-60xp.onrender.com/users?search=${search}`,
+        `https://chat-app-blpr.onrender.com/users?search=${search}`,
         config
       );
       console.log(data);
@@ -61,7 +61,7 @@ const UpdateGroupChat = ({ fetchMessages, fetchAgain, setfetchAgain }) => {
         },
       };
       const { data } = await axios.put(
-        `https://chat-app-60xp.onrender.com/chat/rename`,
+        `https://chat-app-blpr.onrender.com/chat/rename`,
         {
           chatId: selectedChat._id,
           chatName: groupChatName,
@@ -119,7 +119,7 @@ const UpdateGroupChat = ({ fetchMessages, fetchAgain, setfetchAgain }) => {
         },
       };
       const { data } = await axios.put(
-        `https://chat-app-60xp.onrender.com/chat/groupadd`,
+        `https://chat-app-blpr.onrender.com/chat/groupadd`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
@@ -164,7 +164,7 @@ const UpdateGroupChat = ({ fetchMessages, fetchAgain, setfetchAgain }) => {
         },
       };
       const { data } = await axios.put(
-        `https://chat-app-60xp.onrender.com/chat/groupremove`,
+        `https://chat-app-blpr.onrender.com/chat/groupremove`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
