@@ -3,6 +3,10 @@ const {User} = require("../models/user.model");
 
 
 const protect = async (req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "*"
+  );
   let token;
 
   if (
