@@ -5,7 +5,7 @@ const secret = process.env.JWT_SECRET;
 
 const generateToken = (email) => {
   try {
-    let token = jsonwebtoken.sign({ email }, secret, { expiresIn: "1d" });
+    let token = jsonwebtoken.sign({ email }, secret, { expiresIn: "15d" });
     return token;
   } catch (error) {
     console.log(error);

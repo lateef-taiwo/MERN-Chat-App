@@ -63,7 +63,7 @@ const SideDrawer = () => {
       };
 
       const { data } = await axios.get(
-        `https://chat-app-60xp.onrender.com/users?search=${search}`,
+        `http://localhost:5000/users?search=${search}`,
         config
       );
       console.log(data);
@@ -95,7 +95,7 @@ const SideDrawer = () => {
       };
 
       const { data } = await axios.post(
-        "https://chat-app-60xp.onrender.com/chat",
+        "http://localhost:5000/chat",
         { userid },
         config
       );
