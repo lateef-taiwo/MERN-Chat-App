@@ -71,6 +71,7 @@ const SideDrawer = () => {
       setsearchResult(data)
       console.log(searchResult);
     } catch (error) {
+      setLoading(false);
       toast({
         title: "Something went wrong",
         description: "Failed to load the search results",
@@ -79,7 +80,6 @@ const SideDrawer = () => {
         isClosable: true,
         position: "bottom-left",
       })
-      setLoading(false);
     }
   }
 
