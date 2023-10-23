@@ -80,7 +80,8 @@ const SideDrawer = () => {
         isClosable: true,
         position: "bottom-left",
       })
-    }
+  } finally{
+    setLoading(false);
   }
 
   const accessChat = async (userid) => {
