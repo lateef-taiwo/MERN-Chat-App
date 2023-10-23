@@ -16,7 +16,7 @@ import { getSender, getSenderFull } from "../config/ChatLogics";
 import UpdateGroupChat from "./Sub-Components/UpdateGroupChat";
 import axios from "axios";
 import io from "socket.io-client";
-import Lottie from "react-lottie";
+// import Lottie from "react-lottie";
 import animationData from "../animations/animation_lnyzk5oe.json"
 
 const endpoint = "https://chat-app-blpr.onrender.com";
@@ -239,12 +239,12 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
             >
               {istyping ? (
                 <div>
-                  <Lottie
+                  {/* <Lottie
                     options={defaultOptions}
                     height={50}
                     width={70}
                     style={{ marginBottom: 15, marginLeft: 0 }}
-                  />
+                  /> */}
                 </div>
               ) : (
                 <></>
