@@ -4,6 +4,7 @@ const { Chat } = require("../models/chats.models");
 const accessChat = async (req, res) => {
   try {
     const { userid } = req.body;
+    res.setHeader("Access-Control-Allow-Origin", "*");
     //  console.log(req.user);
     if (!userid) {
       return res.status(400).json({
