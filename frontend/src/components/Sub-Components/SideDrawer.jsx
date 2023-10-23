@@ -71,7 +71,6 @@ const SideDrawer = () => {
       setsearchResult(data)
       console.log(searchResult);
     } catch (error) {
-      setLoading(false);
       toast({
         title: "Something went wrong",
         description: "Failed to load the search results",
@@ -80,8 +79,10 @@ const SideDrawer = () => {
         isClosable: true,
         position: "bottom-left",
       })
-  } finally{
-    setLoading(false);
+      setLoading(false);
+    }finally{
+      setLoading(false);
+    }
   }
 
   const accessChat = async (userid) => {
@@ -201,5 +202,4 @@ const SideDrawer = () => {
   );
 };
 
-}
 export default SideDrawer;
