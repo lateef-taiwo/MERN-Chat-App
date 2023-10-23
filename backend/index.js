@@ -12,6 +12,7 @@ const {errorHandler} = require("./middleware/errorHandler")
 
 dotenv.config()
 const app = express()
+
 corsOptions = {
   origin: "*",
   methods : "GET,HEAD,PUT,PATCH,POST,DELETE",
