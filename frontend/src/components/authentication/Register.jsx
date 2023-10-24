@@ -38,6 +38,13 @@ const Register = () => {
         .then((data) => {
           setpic(data.url.toString())
           console.log(pic);
+          Toast({
+            title: "Image uploaded successfully",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
         })
         .catch((err) => {
           console.log(err)

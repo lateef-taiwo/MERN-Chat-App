@@ -1,6 +1,6 @@
 const { User } = require("../models/user.model");
 const bcrypt = require("bcryptjs");
-const {generateToken, verifyToken} = require("../config/sessions");
+const { generateToken, verifyToken } = require("../config/sessions");
 
 const register = async (req, res) => {
   try {
@@ -48,20 +48,20 @@ const login = async (req, res, next) => {
     if (isMatch) {
       req.user = user;
       console.log(req.user);
-      return res
-        .status(200)
-        .json({
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-          pic: user.pic,
-          token: token,
-          success: true,
-          message: "Login Successful",
-        })
+      return res.status(200).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        pic: user.pic,
+        token: token,
+        success: true,
+        message: "Login Successful",
+      });
     }
     verifyToken;
-    return res.status(401).send({ message: "Invalid Password", status: false });
+    return res
+      .status(401)
+      .send({ message: "Invalid Login Credentials", status: false });
   } catch (error) {
     next(error);
   }

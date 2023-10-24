@@ -13,9 +13,15 @@ const {errorHandler} = require("./middleware/errorHandler")
 dotenv.config()
 const app = express()
 
+corsOptions = {
+  origin: "*",
+  methods : "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials : true,
+}
+app.use(cors(corsOptions));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({ origin: "*" }));
 app.use(errorHandler)
 app.use("/users", userRoutes);
 app.use("/chat", chatRoutes);
@@ -73,8 +79,8 @@ io.on("connection", (socket) => {
     });
   });
 
-  // socket.off("setup", () => {
-  //   console.log("USER DISCONNECTED");
-  //   socket.leave(userData._id);
-  // });
+  socket.off("setup", () => {
+    console.log("USER DISCONNECTED");
+    socket.leave(userData._id);
+  });
 });
