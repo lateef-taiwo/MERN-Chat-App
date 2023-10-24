@@ -17,23 +17,22 @@ const MyChats = ({ fetchAgain }) => {
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
-        }
+        },
       };
 
       const { data } = await axios.get(
         "https://chat-app-blpr.onrender.com/chat",
         config
       );
-      console.log(data);
       setchats(data);
     } catch (error) {
       toast({
-        title: "Error Occured",
-        description: "Failed to load the chats",
+        title: "Error Occured!",
+        description: "Failed to Load the chats",
         status: "error",
-        duration: 3000,
+        duration: 5000,
         isClosable: true,
-        position: "top-left",
+        position: "bottom-left",
       });
     }
   }
