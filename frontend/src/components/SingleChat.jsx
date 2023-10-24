@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { chatState } from "../Context/ChatProvider";
 import {
   Box,
+  Button,
   FormControl,
   IconButton,
   Input,
@@ -80,7 +81,7 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
     };
 
   const sendMessage = async (event) => {
-    if (event.key === "Enter" && newMessage) {
+    if (newMessage) {
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
@@ -232,10 +233,11 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
             )}
 
             <FormControl
-              onKeyDown={sendMessage}
+              onKeyPress={(e) => (e.key === "Enter" ? sendMessage() : null)}
               id="first-name"
               isRequired
               mt={3}
+              display={"flex"}
             >
               {istyping ? (
                 <div>
@@ -256,6 +258,14 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
                 value={newMessage}
                 onChange={typingHandler}
               />
+              <Button
+                ml={3}
+                colorScheme="orange"
+                variant="solid"
+                onClick={sendMessage}
+              >
+                Send
+              </Button>
             </FormControl>
           </Box>
         </>
