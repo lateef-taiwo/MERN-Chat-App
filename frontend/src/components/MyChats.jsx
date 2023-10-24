@@ -21,7 +21,7 @@ const MyChats = ({ fetchAgain }) => {
       };
 
       const { data } = await axios.get(
-        "https://chat-app-60xp.onrender.com/chat",
+        "https://chat-app-blpr.onrender.com/chat",
         config
       );
       console.log(data);

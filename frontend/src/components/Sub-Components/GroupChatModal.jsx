@@ -46,7 +46,7 @@ const GroupChatModal = ({ children }) => {
         },
       };
       const { data } = await axios.get(
-        `https://chat-app-60xp.onrender.com/users?search=${search}`,
+        `https://chat-app-blpr.onrender.com/users?search=${search}`,
         config
       );
       console.log(data);
@@ -87,7 +87,7 @@ const GroupChatModal = ({ children }) => {
         },
       };
       const { data } = await axios.post(
-        `https://chat-app-60xp.onrender.com/chat/group`,
+        `https://chat-app-blpr.onrender.com/chat/group`,
         {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((u) => u._id)),
