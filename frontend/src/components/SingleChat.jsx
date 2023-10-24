@@ -17,8 +17,9 @@ import { getSender, getSenderFull } from "../config/ChatLogics";
 import UpdateGroupChat from "./Sub-Components/UpdateGroupChat";
 import axios from "axios";
 import io from "socket.io-client";
-// import Lottie from "react-lottie";
+// import Lottie from "lottie-react";
 import animationData from "../animations/animation_lnyzk5oe.json"
+// import sendAnimate from "../animations/animation_lo4au8a4.json"
 
 const endpoint = "https://chat-app-blpr.onrender.com";
 var socket, selectedChatCompare;
@@ -264,7 +265,7 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
                 variant="solid"
                 onClick={sendMessage}
               >
-                Send
+                <span className="material-symbols-outlined">send</span>
               </Button>
             </FormControl>
           </Box>
