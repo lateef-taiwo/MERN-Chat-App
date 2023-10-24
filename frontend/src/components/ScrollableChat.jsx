@@ -1,8 +1,13 @@
-import React from 'react'
-import { chatState } from '../Context/ChatProvider';
+import React from "react";
+import { chatState } from "../Context/ChatProvider";
 import ScrollableFeed from "react-scrollable-feed";
-import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser } from '../config/ChatLogics';
-import { Avatar, Tooltip } from '@chakra-ui/react';
+import {
+  isLastMessage,
+  isSameSender,
+  isSameSenderMargin,
+  isSameUser,
+} from "../config/ChatLogics";
+import { Avatar, Tooltip } from "@chakra-ui/react";
 
 const ScrollableChat = ({ messages }) => {
   const { user } = chatState();
@@ -28,7 +33,7 @@ const ScrollableChat = ({ messages }) => {
             <span
               style={{
                 backgroundColor: `${
-                  m.sender._id === user._id ? "#FFD700" : "#B9F5D0"
+                  m.sender._id === user._id ? "orange" : "#B9F5D0"
                 }`,
                 marginLeft: isSameSenderMargin(messages, m, i, user._id),
                 marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
@@ -38,6 +43,12 @@ const ScrollableChat = ({ messages }) => {
               }}
             >
               {m.content}
+              <sub className="ml-1 text-[10px]">
+                {new Date(m.createdAt).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </sub>
             </span>
           </div>
         ))}
@@ -45,4 +56,4 @@ const ScrollableChat = ({ messages }) => {
   );
 };
 
-export default ScrollableChat
+export default ScrollableChat;
