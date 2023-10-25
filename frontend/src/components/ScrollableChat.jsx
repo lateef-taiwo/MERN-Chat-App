@@ -16,8 +16,8 @@ const ScrollableChat = ({ messages }) => {
     <ScrollableFeed>
       {messages &&
         messages.map((m, i) => (
-          <div>
-            <div style={{ display: "flex" }} key={m._id}>
+          <div key={m._id}>
+            <div style={{ display: "flex" }}>
               {(isSameSender(messages, m, i, user._id) ||
                 isLastMessage(messages, i, user._id)) && (
                 <Tooltip
@@ -49,7 +49,9 @@ const ScrollableChat = ({ messages }) => {
                 className="relative"
               >
                 <p>{m.content}</p>
-                <span className="material-symbols-outlined absolute top-0 right-0 visible hover:invisible">expand_more</span>
+                {/* <span className="material-symbols-outlined absolute top-0 right-0 visible hover:invisible">
+                  expand_more
+                </span> */}
               </span>
             </div>
             <div className="flex mt-[-10px] justify-between">
