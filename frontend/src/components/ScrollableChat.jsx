@@ -17,7 +17,13 @@ const ScrollableChat = ({ messages }) => {
       {messages &&
         messages.map((m, i) => (
           <div key={m._id}>
-            <div style={{ display: "flex" }}>
+            <div
+              style={{
+                display: "flex",
+                marginTop: isSameUser(messages, m, i, user._id) ? 3 : 20,
+              }}
+              className="relative"
+            >
               {(isSameSender(messages, m, i, user._id) ||
                 isLastMessage(messages, i, user._id)) && (
                 <Tooltip
@@ -41,29 +47,32 @@ const ScrollableChat = ({ messages }) => {
                     m.sender._id === user._id ? "orange" : "#B9F5D0"
                   }`,
                   marginLeft: isSameSenderMargin(messages, m, i, user._id),
-                  marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
                   borderRadius: "10px",
                   padding: "5px 15px",
                   maxWidth: "70%",
                 }}
-                className="relative"
+                className="relative flex items-center justify-between group"
               >
-                <p>{m.content}</p>
-                {/* <span className="material-symbols-outlined absolute top-0 right-0 visible hover:invisible">
-                  expand_more
-                </span> */}
-              </span>
-            </div>
-            <div className="flex mt-[-10px] justify-between">
-              <div className="ml-auto">
-                <sub className="text-[9px]">
+                <span>{m.content}</span>
+                <span className="text-[9px] ml-2 self-end">
                   {new Date(m.createdAt).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                     hourCycle: "h23",
                   })}
-                </sub>
-              </div>
+                </span>
+                <span
+                  style={{
+                    backgroundColor: `radial-gradient(ellipse at center, rgba(255, 165, 0, 0.7) 0%, ${
+                      m.sender._id === user._id ? "orange" : "#B9F5D0"
+                    } 100%)`,
+                    borderRadius: "10px",
+                  }}
+                  className="material-symbols-outlined absolute text-[20px] top-0 right-1 group-hover:visible invisible"
+                >
+                  expand_more
+                </span>
+              </span>
             </div>
           </div>
         ))}
