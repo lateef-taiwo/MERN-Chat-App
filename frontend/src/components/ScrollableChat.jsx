@@ -52,8 +52,6 @@ const ScrollableChat = ({ messages }) => {
                 {/* <span className="material-symbols-outlined absolute top-0 right-0 visible hover:invisible">
                   expand_more
                 </span> */}
-              </span>
-            </div>
             <div className="flex mt-[-10px] justify-between">
               <div className="ml-auto">
                 <sub className="text-[9px]">
@@ -64,6 +62,8 @@ const ScrollableChat = ({ messages }) => {
                   })}
                 </sub>
               </div>
+            </div>
+              </span>
             </div>
           </div>
         ))}

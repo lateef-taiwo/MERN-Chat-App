@@ -5,6 +5,7 @@ import SideDrawer from "../components/Sub-Components/SideDrawer";
 import MyChats from "../components/MyChats";
 import ChatBox from "../components/ChatBox";
 
+
 const Chats = () => {
   const { user } = chatState();
   const [fetchAgain, setfetchAgain] = useState(false)
@@ -16,7 +17,7 @@ const Chats = () => {
         display={"flex"}
         justifyContent={"space-between"}
         w={"100%"}
-        h={"100vh"}
+        h={"90vh"}
         p={"10px"}
       >
         {user && <MyChats fetchAgain={fetchAgain} />}

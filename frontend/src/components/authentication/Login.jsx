@@ -92,7 +92,7 @@ const Login = () => {
             placeholder="Enter Your Email"
           />
           {touched.email && errors.email && (
-            <small className="text-red-600 font-bold">{errors.email}</small>
+            <small className="text-red-600 font-black">{errors.email}</small>
           )}
         </FormControl>
 
