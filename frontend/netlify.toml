@@ -1,2 +1,2 @@
 [build]
-install = "npm install --legacy-peer-deps"
+install = "npm install --force"
