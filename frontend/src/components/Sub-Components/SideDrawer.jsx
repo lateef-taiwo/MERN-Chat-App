@@ -27,6 +27,7 @@ import axios from "axios";
 import ChatLoader from "../ChatLoader";
 import UserListItem from "../User Avatar/UserListItem";
 import Loader from "../Loader";
+import { getSender } from "../../config/ChatLogics";
 
 
 const SideDrawer = () => {
@@ -34,7 +35,7 @@ const SideDrawer = () => {
   const [searchResult, setsearchResult] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [loadingChat, setloadingChat] = useState();
-  const { user, setselectedChat, chats, setchats } = chatState();
+  const { user, setselectedChat, chats, setchats, notification, setnotification } = chatState();
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
@@ -151,7 +152,25 @@ const SideDrawer = () => {
             <MenuButton p={1}>
               <BellIcon fontSize={"2xl"} m={1} />
             </MenuButton>
-            {/* <MenuList></MenuList> */}
+            <MenuList p={2}>
+              {!notification.length && "No New Messages"}
+              {notification.map((notif) => (
+                <MenuItem
+                  key={notif._id}
+                  onClick={() => {
+                    setselectedChat(notif.chat);
+                    setnotification(notification.filter((n) => n !== notif));
+                  }}
+                >
+                  {notif.chat.isGroupChat
+                    ? `New Message from ${getSender(
+                        user,
+                        notif.chat.users
+                      )} in ${notif.chat.chatName}`
+                    : `New Message from ${getSender(user, notif.chat.users)}`}
+                </MenuItem>
+              ))}
+            </MenuList>
           </Menu>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
@@ -190,7 +209,7 @@ const SideDrawer = () => {
             {Loading ? (
               <ChatLoader />
             ) : (
-              searchResult?.map(user => (
+              searchResult?.map((user) => (
                 <UserListItem
                   key={user._id}
                   user={user}
@@ -198,7 +217,7 @@ const SideDrawer = () => {
                 />
               ))
             )}
-            {loadingChat && <Loader/>}
+            {loadingChat && <Loader />}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

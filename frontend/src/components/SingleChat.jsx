@@ -41,7 +41,7 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
         preserveAspectRatio: "xMidYMid slice",
       },
     };
-  const { selectedChat, setselectedChat, user, notification, setNotification } =
+  const { selectedChat, setselectedChat, user, notification, setnotification } =
     chatState();
 
     const fetchMessages = async () => {
@@ -140,7 +140,7 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
           selectedChatCompare._id !== newMessageRecieved.chat._id
         ) {
           if (!notification.includes(newMessageRecieved)) {
-            setNotification([newMessageRecieved, ...notification]);
+            setnotification([newMessageRecieved, ...notification]);
             setfetchAgain(!fetchAgain);
           }
         } else {
