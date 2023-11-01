@@ -22,3 +22,14 @@
   overflow-y: scroll;
   scrollbar-width: none;
 }
+
+.more{
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s ease;
+}
+
+.relative:hover .more{
+  visibility: visible;
+  opacity: 1;
+}

@@ -7,7 +7,7 @@ import {
   isSameSenderMargin,
   isSameUser,
 } from "../config/ChatLogics";
-import { Avatar, Tooltip } from "@chakra-ui/react";
+import { Avatar, Menu, MenuButton, MenuItem, MenuList, Tooltip } from "@chakra-ui/react";
 
 const ScrollableChat = ({ messages }) => {
   const { user } = chatState();
@@ -38,7 +38,7 @@ const ScrollableChat = ({ messages }) => {
               <span
                 style={{
                   backgroundColor: `${
-                    m.sender._id === user._id ? "orange" : "#B9F5D0"
+                    m.sender._id === user._id ? "orange" : "#52a2f3"
                   }`,
                   marginLeft: isSameSenderMargin(messages, m, i, user._id),
                   marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
@@ -49,9 +49,25 @@ const ScrollableChat = ({ messages }) => {
                 className="relative"
               >
                 <p>{m.content}</p>
-                {/* <span className="material-symbols-outlined absolute top-0 right-0 visible hover:invisible">
-                  expand_more
-                </span> */}
+                <div className="top-0 right-0 absolute">
+                  <Menu>
+                    <MenuButton>
+                      <span
+                        style={{
+                          backgroundColor: `${
+                            m.sender._id === user._id ? "orange" : "#52a2f3"
+                          }`,
+                        }}
+                        className="material-symbols-outlined  more rounded-full cursor-pointer shadow-2xl"
+                      >
+                        expand_more
+                      </span>
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem>Edit</MenuItem>
+                    </MenuList>
+                  </Menu>
+                </div>
                 <div className="flex mt-[-10px] justify-between">
                   <div className="ml-auto">
                     <sub className="text-[9px]">

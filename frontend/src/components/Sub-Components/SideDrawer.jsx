@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Badge,
   Box,
   Button,
   Drawer,
@@ -149,8 +150,13 @@ const SideDrawer = () => {
         </Text>
         <div>
           <Menu>
-            <MenuButton p={1}>
+            <MenuButton p={1} className="relative">
               <BellIcon fontSize={"2xl"} m={1} />
+              {notification.length === 0 ? null : (
+                <Badge colorScheme="red" className="absolute right-[2px]">
+                  {notification.length}
+                </Badge>
+              )}
             </MenuButton>
             <MenuList p={2}>
               {!notification.length && "No New Messages"}
