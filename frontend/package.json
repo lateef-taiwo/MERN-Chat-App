@@ -22,6 +22,7 @@
     "bootstrap-icons": "^1.11.1",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.4",
+    "jwt-decode": "^4.0.0",
     "lottie-react": "^2.4.0",
     "navigate": "^0.3.6",
     "react": "^18.2.0",
