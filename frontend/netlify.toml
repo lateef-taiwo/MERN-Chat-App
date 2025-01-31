@@ -1,2 +1,7 @@
 [build]
 install = "npm install --force"
+
+[[redirects]]
+  from = "/"
+  to = "/dashboard"
+  status = 301
